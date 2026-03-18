@@ -1,4 +1,5 @@
 import * as repo from '../repository/studentRepository.js';
+import * as service from "../service/studentService.js";
 
 export const addStudent = async (req, res) => {
     const success = await repo.addStudent(req.body);
@@ -10,20 +11,18 @@ export const addStudent = async (req, res) => {
 }
 
 export const findStudent = async (req, res) => {
-    const student = await repo.findStudent(+req.params.id);
+    const student = await service.findStudent(+req.params.id);
     if (student) {
-        const {password, ...studentWithoutPassword} = student;
-        res.json(studentWithoutPassword);
+        res.json(student);
     } else {
         res.status(404).send();
     }
 }
 
 export const deleteStudent = async (req, res) => {
-    const student = await repo.deleteStudent(+req.params.id);
+    const student = await service.deleteStudent(+req.params.id);
     if (student) {
-        const {password, ...studentWithoutPassword} = student;
-        res.json(studentWithoutPassword);
+        res.json(student);
     } else {
         res.status(404).send();
     }
