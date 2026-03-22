@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import studentRouter from "./routes/studentRoutes.js";
-import {studentErrorHandler} from "./middleware/errorHandler.js";
 import {notFoundHandler} from "./middleware/notFoundHandler.js";
 
 dotenv.config();
@@ -17,7 +16,6 @@ app.use(studentRouter);
 // });
 app.use(notFoundHandler);
 
-app.use(studentErrorHandler);
 async function startServer() {
     try {
         await mongoose.connect(process.env.MONGO_URI, {

@@ -1,9 +1,9 @@
 import Joi from 'joi';
 
 export const addStudentSchema = Joi.object({
-    id: Joi.number().integer().positive().required(),
+    id: Joi.number().integer().required(),
     name: Joi.string().required(),
-    password: Joi.string().length(6).required(),
+    password: Joi.string().required(),
 })
 
 export const updateStudentSchema = Joi.object({

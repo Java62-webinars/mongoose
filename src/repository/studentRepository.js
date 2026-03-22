@@ -1,33 +1,27 @@
 import Student from "../model/student.js";
 
-export  function createStudent(student) {
-    return  Student.create(student);
+export function createStudent(student) {
+    return Student.create(student);
 }
 
 export function findStudentById(id) {
-    return Student.findById(id);
+    return Student.findById(id).exec();
 }
 
-//exists()
-//updateOne()
-//deleteOne()
-//insertMany()
-
-
 export function deleteStudentById(id) {
-    return Student.findByIdAndDelete(id);
+    return Student.findByIdAndDelete(id).exec();
 }
 
 export function updateStudent(id, data){
-    return Student.findByIdAndUpdate(id, data);
+    return Student.findByIdAndUpdate(id, data, {new: true}).exec();
 }
 
 export function updateStudentScore(id, exam, score){
-    return Student.findByIdAndUpdate(id, {$set: {[`scores.${exam}`]: score}});
+    return Student.findByIdAndUpdate(id, {$set: {[`scores.${exam}`]: score}}).exec();
 }
 
 export function findStudentsByName(name) {
-    return Student.find({name: new RegExp(`^${name}$`, 'i')});
+    return Student.find({name: new RegExp(`^${name}$`, 'i')}).exec();
 }
 
 export function countStudentsByName(names) {
@@ -38,5 +32,5 @@ export function countStudentsByName(names) {
 }
 
 export function findStudentsMinScore(exam, minScore) {
-    return Student.find({[`scores.${exam}`]: {$gte: minScore}});
+    return Student.find({[`scores.${exam}`]: {$gte: minScore}}).exec();
 }
