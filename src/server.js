@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import studentRouter from "./routes/studentRoutes.js";
 import {notFoundHandler} from "./middleware/notFoundHandler.js";
+import {studentErrorHandler} from "./middleware/errorHandler.js";
 
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -15,7 +16,7 @@ app.use(studentRouter);
 //     res.status(404).type('text/plain; charset=utf-8').send('404 Not Found')
 // });
 app.use(notFoundHandler);
-
+app.use(studentErrorHandler);
 async function startServer() {
     try {
         await mongoose.connect(process.env.MONGO_URI, {
