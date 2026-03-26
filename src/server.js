@@ -25,7 +25,8 @@ async function startServer() {
         console.log("Connected to MongoDB");
         app.listen(port, () => console.log(`Server running on port ${port}. Press Ctrl+C to quit.`));
     } catch (e) {
-        console.log('Failed connecting to MongoDB: ', e);
+        console.error('Failed connecting to MongoDB: ', e);
+        process.exit(1);
     }
 }
 

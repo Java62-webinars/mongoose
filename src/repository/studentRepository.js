@@ -1,7 +1,11 @@
 import Student from "../model/student.js";
 
 export function createStudent(student) {
-    return Student.create(student);
+    try {
+        return Student.create(student);
+    }catch (e) {
+        throw new DatabaseError("Failed create student - Database Error: " + e.message);
+    }
 }
 
 export function findStudentById(id) {

@@ -2,15 +2,17 @@ import * as service from '../service/studentService.js';
 import {addStudentSchema, scoreSchema, updateStudentSchema} from "../validator/studentValidator.js";
 import {AppError} from "../errors/AppError.js";
 import {NotFoundError} from "../errors/NotFoundError.js";
+import {ValidationError} from "../errors/ValidationError.js";
+import {ConflictError} from "../errors/ConflictError.js";
 
 export const addStudent = async (req, res) => {
     const {error} = addStudentSchema.validate(req.body);
         if (error) {
-             throw new AppError(error.details[0].message, 400);
+             throw new ValidationError(error.details[0].message);
         }
         const success = await service.addStudent(req.body);
         if (!success) {
-            throw new AppError("Student already exists", 409);
+            throw new ConflictError("Student already exists");
         }
         res.status(204).send();
 }
