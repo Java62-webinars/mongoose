@@ -20,11 +20,11 @@ describe('Testing ErrorMiddleware', () => {
     });
     it ('should return 500 for unexpected error', async () => {
         const app = express();
-        app.get('/boom', (req, res, next) => {
+        app.post('/boom', (req, res, next) => {
             next(new Error('Unexpected crash'));
         });
         app.use(studentErrorHandler);
-        const response = await request(app).get('/boom');
+        const response = await request(app).post('/boom').send({name: "John"});
         expect(response.status).toBe(500);
         expect(response.body).toEqual({
             "message": "Internal Server Error",
